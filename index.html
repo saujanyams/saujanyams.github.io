@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>M S Saujanya — VLSI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0c10;
+    --bg2: #0f1117;
+    --bg3: #141720;
+    --border: rgba(100,220,160,0.15);
+    --border-bright: rgba(100,220,160,0.35);
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.08);
+    --green-mid: rgba(74,222,128,0.18);
+    --amber: #fbbf24;
+    --teal: #2dd4bf;
+    --text: #e8f0ea;
+    --muted: #6b7a72;
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,12,16,0.88);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 900px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    color: var(--green);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  /* HERO */
+  .hero {
+    padding: 140px 0 80px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--green);
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.3em;
+  }
+  h1 span { color: var(--green); }
+  .hero-sub {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 1.2rem;
+    max-width: 540px;
+    line-height: 1.8;
+  }
+  .hero-sub em { color: var(--teal); font-style: normal; }
+
+  .hero-ctas {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: #0a0c10;
+    border: 1px solid var(--green);
+    font-weight: 700;
+  }
+  .btn-primary:hover { background: #22c55e; }
+  .btn-outline {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--border-bright);
+  }
+  .btn-outline:hover { background: var(--green-dim); border-color: var(--green); }
+
+  .hero-stats {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 520px;
+    background: var(--border);
+  }
+  .stat {
+    background: var(--bg2);
+    padding: 1.2rem 1.4rem;
+  }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--green);
+    display: block;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION LAYOUT */
+  section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .skill-group {
+    background: var(--bg2);
+    padding: 1.4rem;
+  }
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: var(--green-dim);
+    color: var(--green);
+    border: 1px solid rgba(74,222,128,0.2);
+    white-space: nowrap;
+  }
+  .tag.amber {
+    background: rgba(251,191,36,0.08);
+    color: var(--amber);
+    border-color: rgba(251,191,36,0.2);
+  }
+  .tag.teal {
+    background: rgba(45,212,191,0.08);
+    color: var(--teal);
+    border-color: rgba(45,212,191,0.2);
+  }
+
+  /* PROJECTS */
+  .projects-list { display: flex; flex-direction: column; gap: 2px; }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.8rem 2rem;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--green);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.25s ease;
+    border-radius: 0 2px 2px 0;
+  }
+  .project-card:hover { border-color: var(--border-bright); background: var(--bg3); }
+  .project-card:hover::before { transform: scaleY(1); }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .project-title {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .project-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 10px;
+    background: rgba(45,212,191,0.1);
+    color: var(--teal);
+    border: 1px solid rgba(45,212,191,0.25);
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .project-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 1.2rem;
+  }
+  .project-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .metric-val {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--green);
+    font-weight: 700;
+  }
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+
+  /* WAVEFORM PLACEHOLDER */
+  .waveform-slot {
+    margin-top: 1.2rem;
+    background: var(--bg);
+    border: 1px dashed var(--border-bright);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .waveform-slot svg { flex-shrink: 0; opacity: 0.5; }
+  .waveform-text { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .waveform-text strong { color: var(--green); display: block; margin-bottom: 2px; }
+
+  /* CERTS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .cert-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.4rem;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--border-bright); }
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .cert-title {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .cert-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* EDUCATION */
+  .edu-list { display: flex; flex-direction: column; gap: 16px; }
+  .edu-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.4rem 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .edu-inst {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .edu-degree { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .edu-score {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    color: var(--green);
+    font-weight: 700;
+    text-align: right;
+  }
+  .edu-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--green); color: var(--green); }
+  .contact-icon {
+    font-size: 18px;
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  .contact-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  footer span { color: var(--green); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.6s ease both; }
+  .hero-tag { animation-delay: 0.1s; }
+  h1 { animation-delay: 0.2s; }
+  .hero-sub { animation-delay: 0.3s; }
+  .hero-ctas { animation-delay: 0.4s; }
+  .hero-stats { animation-delay: 0.5s; }
+
+  /* CURSOR DOT */
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 2.8rem; }
+    .hero-stats { grid-template-columns: 1fr 1fr; max-width: 100%; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">M S Saujanya // VLSI</span>
+    <ul class="nav-links">
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#certs">certifications</a></li>
+      <li><a href="#education">education</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-tag">VLSI · RTL Design · FPGA</div>
+    <h1>M S<br><span>Saujanya</span></h1>
+    <p class="hero-sub">
+      B.Tech ECE @ VIT Chennai (2026) — Aspiring VLSI engineer with interest in RTL design and verification.<br>
+      <em>Quartus · Cadence Virtuoso · Sky130 · Yosys · ModelSim</em>
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="saujanya_resume.pdf" download>↓ Download Resume</a>
+      <a class="btn btn-outline" href="https://github.com/saujanyams" target="_blank">github.com/saujanyams</a>
+      <a class="btn btn-outline" href="mailto:saujanyams11@gmail.com">saujanyams11@gmail.com</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-label">building synthesizable RTL</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">FPGA accelerators</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">low power CMOS circuits</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-tag">// 01</div>
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-label">HDL</div>
+        <div class="skill-tags">
+          <span class="tag">Verilog</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">C / C++</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">EDA Tools</div>
+        <div class="skill-tags">
+          <span class="tag amber">Cadence Virtuoso</span>
+          <span class="tag amber">ModelSim</span>
+          <span class="tag amber">Quartus Prime</span>
+          <span class="tag amber">Yosys</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">PDK / FPGA</div>
+        <div class="skill-tags">
+          <span class="tag teal">Sky130</span>
+          <span class="tag teal">Cyclone IV</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Design Concepts</div>
+        <div class="skill-tags">
+          <span class="tag">RTL Design</span>
+          <span class="tag">FSM</span>
+          <span class="tag">Pipelining</span>
+          <span class="tag">GLS</span>
+          <span class="tag">Low-Power Design</span>
+          <span class="tag">STA</span>
+          <span class="tag">IC Design</span>
+          <span class="tag">CDC</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Protocols</div>
+        <div class="skill-tags">
+          <span class="tag teal">SPI</span>
+          <span class="tag teal">WISHBONE</span>
+          <span class="tag teal">AMBA</span>
+          <span class="tag teal">UART</span>
+          <span class="tag teal">I2C</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-tag">// 02</div>
+    <h2>Projects</h2>
+    <div class="projects-list">
+
+      <!-- SPI Core -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">Synthesizable SPI Design</div>
+          <span class="project-badge">RTL DESIGN</span>
+        </div>
+        <p class="project-desc">
+          Fully synthesizable SPI Master Core in Verilog with WISHBONE-compliant host interface.
+          Supports SPI Modes 0–3 and Microwire/Plus protocols. Verified via ModelSim and confirmed
+          synthesis-compatible using Yosys on Sky130.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Verilog</span>
+          <span class="tag">SPI</span>
+          <span class="tag teal">WISHBONE</span>
+          <span class="tag amber">ModelSim</span>
+        </div>
+        <div class="waveform-slot" style="padding: 0; border: none; cursor: default;">
+          <img src="spi_waveform.jpeg" alt="SPI Master Core ModelSim Waveform" style="width: 100%; height: auto; border-radius: 4px; display: block;">
+        </div>
+      </div>
+
+      <!-- CNN EEG -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">CNN Accelerator — EEG Seizure Detection</div>
+          <span class="project-badge">FPGA · VERILOG</span>
+        </div>
+        <p class="project-desc">
+          Pipelined CNN hardware accelerator in Verilog targeting Cyclone IV FPGA. Uses MAC units
+          and FSM-based control logic. Validated against a Python reference model.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <span class="metric-val">85.4 MHz</span>
+            <span class="metric-label">Post-synth freq</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">92.3 mW</span>
+            <span class="metric-label">Power</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">86.6%</span>
+            <span class="metric-label">Accuracy</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">800×</span>
+            <span class="metric-label">vs SW baseline</span>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Verilog</span>
+          <span class="tag">CNN</span>
+          <span class="tag">MAC unit</span>
+          <span class="tag teal">Cyclone IV</span>
+          <span class="tag amber">Quartus Prime</span>
+          <span class="tag">FSM</span>
+        </div>
+        <div class="waveform-slot" style="padding: 0; border: none; cursor: default;">
+           <img src="cnn_wave.jpeg" alt="CNN Accelerator ModelSim Transcript and Waveform" style="width: 100%; height: auto; border-radius: 4px; display: block;">
+        </div>
+      </div>
+
+      <!-- CORDIC -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">Iterative CORDIC Algorithm on FPGA</div>
+          <span class="project-badge">FPGA IMPL.</span>
+        </div>
+        <p class="project-desc">
+          Iterative CORDIC implementation for sine/cosine computation evaluated across 8-bit,
+          12-bit, and 16-bit fixed-point precision. Demonstrates frequency–utilization tradeoff.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <span class="metric-val">110 MHz</span>
+            <span class="metric-label">8-bit peak freq</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">41% faster</span>
+            <span class="metric-label">vs 16-bit</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">75→154</span>
+            <span class="metric-label">ALUT scaling</span>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="tag">CORDIC</span>
+          <span class="tag">Fixed-Point</span>
+          <span class="tag teal">FPGA</span>
+          <span class="tag amber">Quartus Prime</span>
+        </div>
+      </div>
+
+      <!-- BCD -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">Binary-to-BCD Converter — CMOS vs Pseudo-NMOS</div>
+          <span class="project-badge">ANALOG · CMOS</span>
+        </div>
+        <p class="project-desc">
+          Comparative study of 4-bit Binary-to-BCD converters in CMOS and Pseudo-NMOS logic using
+          Cadence Virtuoso. Demonstrated 5.2× power reduction with negligible timing penalty.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <span class="metric-val">5.2×</span>
+            <span class="metric-label">Power reduction</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">776.6 µW</span>
+            <span class="metric-label">CMOS power</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val">48.66 ps</span>
+            <span class="metric-label">Prop. delay</span>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="tag">CMOS</span>
+          <span class="tag">Low-Power Design</span>
+          <span class="tag amber">Cadence Virtuoso</span>
+          <span class="tag">SpectreRF</span>
+        </div>
+        <div class="waveform-slot" style="padding: 0; border: none; cursor: default;">
+           <img src="bcd_wave.jpeg" alt="Cadence Virtuoso Transient Response for BCD Converter" style="width: 100%; height: auto; border-radius: 4px; display: block;">
+        </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certs">
+    <div class="section-tag">// 03</div>
+      <h2>Certifications</h2>
+     <div class="certs-grid">
+        <div class="cert-card">
+        <div class="cert-issuer">Maven Silicon</div>
+        <div class="cert-title">SPI Design</div>
+        <p class="cert-desc">Designed a WISHBONE-compliant SPI Master Core in Verilog with full protocol coverage. Synthesized and verified using open-source toolchain.</p>
+      
+        <a href="Certificate_mavensilicon.pdf" target="_blank" class="btn btn-outline" style="margin-top: 1rem; width: 100%; justify-content: center;">
+          View Certificate ↗
+        </a>
+     </div>
+    
+     <div class="cert-card">
+        <div class="cert-issuer">VSD</div>
+        <div class="cert-title">Master RTL Design &amp; Synthesis</div>
+        <p class="cert-desc">RTL-to-synthesis flow using Yosys on Sky130 PDK. Gate-level simulation (GLS), synthesis-sim mismatch debugging, static timing analysis (STA) concepts.</p>
+      
+        <a href="certificate_vsd.pdf" target="_blank" class="btn btn-outline" style="margin-top: 1rem; width: 100%; justify-content: center;">
+          View Certificate ↗
+        </a>
+      </div>
+
+    </div>
+</section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-tag">// 04</div>
+    <h2>Education</h2>
+    <div class="edu-list">
+      <div class="edu-card">
+        <div>
+          <div class="edu-inst">Vellore Institute of Technology</div>
+          <div class="edu-degree">B.Tech — Electronics &amp; Communications Engineering</div>
+        </div>
+        <div>
+          <div class="edu-score">8.3 / 10</div>
+          <div class="edu-year">2022 – 2026</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-inst">Sri Chaitanya</div>
+          <div class="edu-degree">Telangana State Board — Class XII</div>
+        </div>
+        <div>
+          <div class="edu-score">98%</div>
+          <div class="edu-year">2020 – 2022</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-inst">DAV Public School</div>
+          <div class="edu-degree">CBSE — Class X</div>
+        </div>
+        <div>
+          <div class="edu-score">92.4%</div>
+          <div class="edu-year">2010 – 2020</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-tag">// 05</div>
+    <h2>Contact</h2>
+    <div class="contact-grid">
+      <a class="contact-link" href="mailto:saujanyams11@gmail.com">
+        <span class="contact-icon">✉</span>
+        <span class="contact-label">Email</span>
+      </a>
+      <a class="contact-link" href="https://github.com/saujanyams" target="_blank">
+        <span class="contact-icon">⌥</span>
+        <span class="contact-label">GitHub</span>
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/saujanya-m-s-70a17b345/" target="_blank">
+        <span class="contact-icon">⊞</span>
+        <span class="contact-label">LinkedIn</span>
+      </a>
+      <a class="contact-link" href="tel:+918374110504">
+        <span class="contact-icon">◎</span>
+        <span class="contact-label">+91 8374110504</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    built by <span>M S Saujanya</span> · hosted on GitHub Pages · 2026
+  </footer>
+</div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+</script>
+</body>
+</html>
